@@ -610,7 +610,13 @@
             };
             for await (const chunk of llama(prompt, params, config)) {
               const stop = chunk.data.stop;
-              const addedContent = chunk.data.choices[0].delta.content;
+              // for llama.cpp format, check if chunk.data.content exists
+              let addedContent;
+              if ('delta' in chunk.data.choices[0]) {
+                addedContent = chunk.data.choices[0].delta.content;
+              } else {
+                addedContent = chunk.data.choices[0].text;
+              }
               const lastContent = this.pendingMsg.content || '';
               if (addedContent) {
                 this.pendingMsg = {

@@ -101,20 +101,51 @@ export async function* llama(prompt, params = {}, config = {}) {
           }
 
           // since we know this is llama.cpp, let's just decode the json in data
+          // Parse the JSON data if present
           if (result.data) {
             result.data = JSON.parse(result.data);
-            content += result.data.content;
+            
+            // Check if this is original llama.cpp format or OpenAI format
+            if ('content' in result.data) {
+              // Original llama.cpp format
+              content += result.data.content;
 
-            // yield
-            yield result;
+              // yield
+              yield result;
 
-            // if we got a stop token from server, we will break here
-            if (result.data.stop) {
-              if (result.data.generation_settings) {
-                generation_settings = result.data.generation_settings;
+              // if we got a stop token from server, we will break here
+              if (result.data.stop) {
+                if (result.data.generation_settings) {
+                  generation_settings = result.data.generation_settings;
+                }
+                cont = false;
+                break;
               }
-              cont = false;
-              break;
+            } else {
+              // OpenAI format
+              if (result.data.choices && result.data.choices.length > 0) {
+                const choice = result.data.choices[0];
+                if (choice.text) {
+                  content += choice.text;
+                }
+
+                // yield
+                yield result;
+
+                // Check for completion
+                if (choice.finish_reason) {
+                  if (result.data.usage) {
+                    generation_settings = {
+                      tokens_predicted: result.data.usage.completion_tokens,
+                      tokens_evaluated: result.data.usage.prompt_tokens,
+                      tokens_cached: result.data.usage.cached_tokens || 0,
+                      ...result.data.generation_settings
+                    };
+                  }
+                  cont = false;
+                  break;
+                }
+              }
             }
           }
           if (result.error) {

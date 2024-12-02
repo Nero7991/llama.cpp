@@ -917,7 +917,7 @@ struct server_context {
         slot.params.sampling.mirostat_eta       = json_value(data, "mirostat_eta",       defaults.sampling.mirostat_eta);
         slot.params.sampling.penalize_nl        = json_value(data, "penalize_nl",        defaults.sampling.penalize_nl);
         slot.params.sampling.seed               = json_value(data, "seed",               defaults.sampling.seed);
-        slot.params.sampling.n_probs            = json_value(data, "n_probs",            defaults.sampling.n_probs);
+        slot.params.sampling.n_probs            = json_value(data, "n_probs",            json_value(data, "logprobs", defaults.sampling.n_probs));
         slot.params.sampling.min_keep           = json_value(data, "min_keep",           defaults.sampling.min_keep);
 
         slot.params.speculative.n_min = json_value(data, "speculative.n_min", defaults.speculative.n_min);
@@ -1133,7 +1133,11 @@ struct server_context {
 
             slot.add_token(result);
             if (slot.params.stream) {
+                #ifndef OAI_FULL_COMPAT
                 send_partial_response(slot, result);
+                #else
+                send_partial_response_oaicompat(slot, result);
+                #endif
             }
         }
 
@@ -1348,6 +1352,62 @@ struct server_context {
         queue_results.send(res);
     }
 
+    void send_partial_response_oaicompat(server_slot & slot, completion_token_output tkn) {
+        server_task_result res;
+        res.id       = slot.id_task;
+        res.error    = false;
+        res.stop     = false;
+
+        // Format choice object for streaming
+        json choice = {
+            {"text", tkn.text_to_send},
+            {"index", slot.index},  
+            {"logprobs", nullptr},
+            {"finish_reason", nullptr}  // null during streaming, only set in final response
+        };
+
+        // Add logprobs if requested
+        if (slot.params.sampling.n_probs > 0) {
+            const llama_tokens to_send_toks = common_tokenize(ctx, tkn.text_to_send, false);
+            const size_t probs_pos      = std::min(slot.n_sent_token_probs, slot.generated_token_probs.size());
+            const size_t probs_stop_pos = std::min(slot.n_sent_token_probs + to_send_toks.size(), slot.generated_token_probs.size());
+
+            std::vector<completion_token_output> probs_output;
+            if (probs_pos < probs_stop_pos) {
+                probs_output = std::vector<completion_token_output>(
+                        slot.generated_token_probs.begin() + probs_pos,
+                        slot.generated_token_probs.begin() + probs_stop_pos);
+            }
+            slot.n_sent_token_probs = probs_stop_pos;
+
+            if (!probs_output.empty()) {
+                choice["logprobs"] = probs_vector_to_json_oaicompat(ctx, probs_output);
+            }
+        }
+
+        // Construct the streaming response object
+        res.data = json {
+            {"id", "cmpl-" + std::to_string(slot.id_task)},
+            {"object", "text_completion"},
+            {"created", static_cast<int64_t>(std::time(nullptr))},
+            {"model", slot.oaicompat_model.empty() ? params_base.model_alias : slot.oaicompat_model},
+            {"choices", json::array({choice})},
+            {"stop",       false},
+            {"id_slot",    slot.id},
+            {"multimodal", false},
+            {"index",      slot.index},
+            // Include minimal usage info in streaming responses
+            {"usage", {
+                {"completion_tokens", static_cast<int>(slot.n_decoded)},
+                {"prompt_tokens", static_cast<int>(slot.n_prompt_tokens)},
+                {"total_tokens", static_cast<int>(slot.n_prompt_tokens + slot.n_decoded)}
+            }}
+        };
+        
+        //fprintf(stderr, "DEBUG: Streaming response data: %s\n", res.data.dump().c_str());
+        queue_results.send(res);
+    }
+
     void send_final_response(const server_slot & slot) {
         server_task_result res;
         res.id       = slot.id_task;
@@ -1397,6 +1457,90 @@ struct server_context {
         }
 
         queue_results.send(res);
+    }
+
+    void send_final_response_oaicompat(const server_slot & slot) {
+        
+        server_task_result res;
+        res.id       = slot.id_task;
+        res.error    = false;
+        res.stop     = true;
+        
+        // Format choice object
+        json choice;
+        try {
+            choice = {
+                {"text", !slot.params.stream ? slot.generated_text : ""},
+                {"index", slot.index},
+                {"logprobs", nullptr},
+                {"finish_reason", slot.stopped_limit ? "length" : "stop"}
+            };
+        } catch (const std::exception& e) {
+            throw;
+        }
+
+        // print key param values
+        fprintf(stderr, "INFO: n_probs: %d\n", slot.params.sampling.n_probs);
+
+        // Add logprobs if requested
+        if (slot.params.sampling.n_probs > 0) {
+            try {
+                std::vector<completion_token_output> probs;
+                if (!slot.params.stream && slot.stopped_word) {
+                    const llama_tokens stop_word_toks = common_tokenize(ctx, slot.stopping_word, false);
+                    size_t safe_offset = std::min(slot.generated_token_probs.size(), stop_word_toks.size());
+                    probs = std::vector<completion_token_output>(
+                            slot.generated_token_probs.begin(),
+                            slot.generated_token_probs.end() - safe_offset);
+                } else {
+                    probs = std::vector<completion_token_output>(
+                            slot.generated_token_probs.begin(),
+                            slot.generated_token_probs.end());
+                }
+                choice["logprobs"] = probs_vector_to_json_oaicompat(ctx, probs);
+            } catch (const std::exception& e) {
+                throw;
+            }
+        }
+
+        // Construct the main response object
+        try {
+            res.data = json {
+                {"id", "cmpl-" + std::to_string(slot.id_task)},
+                {"id_slot", slot.id},
+                {"index", slot.index},
+                {"tokens_predicted",    slot.n_decoded},
+                {"tokens_evaluated",    slot.n_prompt_tokens},
+                {"generation_settings", get_formated_generation(slot)},
+                {"has_new_line",        slot.has_new_line},
+                {"truncated",           slot.truncated},
+                {"stopped_eos",         slot.stopped_eos},
+                {"stopped_word",        slot.stopped_word},
+                {"stopped_limit",       slot.stopped_limit},
+                {"stopping_word",       slot.stopping_word},
+                {"tokens_cached",       slot.n_past},
+                {"timings",             slot.get_formated_timings()},
+                {"object", "text_completion"},
+                {"created", static_cast<int64_t>(std::time(nullptr))},
+                {"model", params_base.model_alias},
+                {"choices", json::array({choice})},
+                {"usage", {
+                {"prompt_tokens", static_cast<int>(slot.n_prompt_tokens)},
+                {"completion_tokens", static_cast<int>(slot.n_decoded)},
+                {"total_tokens", static_cast<int>(slot.n_prompt_tokens + slot.n_decoded)}
+                }}
+            };
+        } catch (const std::exception& e) {
+            throw;
+        }
+
+        // fprintf(stderr, "DEBUG: Final response data: %s\n", res.data.dump().c_str());
+        
+        try {
+            queue_results.send(res);
+        } catch (const std::exception& e) {
+            throw;
+        }
     }
 
     void send_embedding(const server_slot & slot, const llama_batch & batch) {
@@ -2008,7 +2152,11 @@ struct server_context {
 
                             slot.release();
                             slot.print_timings();
+                            #ifndef OAI_FULL_COMPAT
                             send_final_response(slot);
+                            #else
+                            send_final_response_oaicompat(slot);
+                            #endif
                             continue;
                         }
 
@@ -2310,7 +2458,11 @@ struct server_context {
                     // release slot because of stop condition
                     slot.release();
                     slot.print_timings();
+                    #ifndef OAI_FULL_COMPAT
                     send_final_response(slot);
+                    #else
+                    send_final_response_oaicompat(slot);
+                    #endif
                     metrics.on_prediction(slot);
                     continue;
                 }
@@ -2366,7 +2518,11 @@ struct server_context {
                         // release slot because of stop condition
                         slot.release();
                         slot.print_timings();
+                        #ifndef OAI_FULL_COMPAT
                         send_final_response(slot);
+                        #else
+                        send_final_response_oaicompat(slot);
+                        #endif
                         metrics.on_prediction(slot);
                         break;
                     }
@@ -3425,6 +3581,9 @@ int main(int argc, char ** argv) {
     };
 
     LOG_INF("%s: server is listening on http://%s:%d - starting the main loop\n", __func__, params.hostname.c_str(), params.port);
+    #ifdef OAI_FULL_COMPAT
+    fprintf(stderr, "INFO: OpenAI full compatibility mode enabled\n");
+    #endif
 
     ctx_server.queue_tasks.start_loop();
 

@@ -522,6 +522,49 @@ static json probs_vector_to_json(const llama_context * ctx, const std::vector<co
     return out;
 }
 
+static json probs_vector_to_json_oaicompat(const llama_context * ctx, const std::vector<completion_token_output> & probs) {
+    json logprobs;
+    std::vector<std::string> tokens;
+    std::vector<json> token_logprobs;  // Changed to json to allow null values
+    std::vector<json> top_logprobs;    // Changed to allow null values
+    std::vector<int> text_offset;
+    
+    int current_offset = 0;
+    
+    for (const auto & prob : probs) {
+        std::string token_str = tokens_to_output_formatted_string(ctx, prob.tok);
+        tokens.push_back(token_str);
+        text_offset.push_back(current_offset);
+        
+        // Handle token logprobs
+        if (!prob.probs.empty() && prob.probs[0].prob > 0) {
+            token_logprobs.push_back(std::log(prob.probs[0].prob));
+        } else {
+            token_logprobs.push_back(nullptr);
+        }
+        
+        // Handle top logprobs
+        json token_top_logprobs = json::object();
+        for (const auto & p : prob.probs) {
+            if (p.prob > 0) {
+                token_top_logprobs[tokens_to_output_formatted_string(ctx, p.tok)] = std::log(p.prob);
+            }
+        }
+        top_logprobs.push_back(token_top_logprobs.empty() ? nullptr : token_top_logprobs);
+        
+        current_offset += token_str.length();
+    }
+    
+    logprobs = {
+        {"tokens", tokens},
+        {"token_logprobs", token_logprobs},
+        {"top_logprobs", top_logprobs},
+        {"text_offset", text_offset}
+    };
+    
+    return logprobs;
+}
+
 static bool server_sent_event(httplib::DataSink & sink, const char * event, const json & data) {
     const std::string str =
         std::string(event) + ": " +

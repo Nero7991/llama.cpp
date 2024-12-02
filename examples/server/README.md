@@ -194,6 +194,16 @@ services:
   make llama-server
   ```
 
+`llama-server` built with full OpenAI API response format support
+
+- Using `make`:
+
+  ```bash
+  make CXXFLAGS="-DOAI_FULL_COMPAT" llama-server
+  ```
+
+Full OpenAI API support enables using the OpenAI client in the [HELM benchmark](https://crfm.stanford.edu/helm/lite/latest/#/leaderboard) and other applications that need OpenAI API specified JSON responses.
+
 - Using `CMake`:
 
   ```bash
@@ -202,6 +212,7 @@ services:
   ```
 
   Binary is at `./build/bin/llama-server`
+
 
 ## Build with SSL
 

@@ -103,14 +103,34 @@ async function chat_completion(question) {
         const t = Buffer.from(chunk).toString('utf8')
         if (t.startsWith('data: ')) {
             const message = JSON.parse(t.substring(6))
-            slot_id = message.slot_id
-            answer += message.content
-            process.stdout.write(message.content)
-            if (message.stop) {
-                if (message.truncated) {
-                    chat.shift()
+            // Handle both original and OpenAI compatible formats
+            if ('content' in message) {
+                // Original format
+                slot_id = message.slot_id
+                answer += message.content
+                process.stdout.write(message.content)
+                if (message.stop) {
+                    if (message.truncated) {
+                        chat.shift()
+                    }
+                    break
                 }
-                break
+            } else {
+                // OpenAI compatible format
+                if (message.choices && message.choices.length > 0) {
+                    const choice = message.choices[0]
+                    if (choice.text) {
+                        answer += choice.text
+                        process.stdout.write(choice.text)
+                    }
+                    if (choice.finish_reason) {
+                        // Handle truncation if needed based on usage
+                        if (message.usage && message.usage.total_tokens >= n_keep) {
+                            chat.shift()
+                        }
+                        break
+                    }
+                }
             }
         }
     }
