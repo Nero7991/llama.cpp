@@ -1014,9 +1014,14 @@ static const char * GGML_OP_NAME[GGML_OP_COUNT] = {
     "OPT_STEP_ADAMW",
 
     "GLU",
+
+    "ATLAS_MEMORY_UPDATE",
+    "ATLAS_OMEGA_RULE",
+    "ATLAS_MUON_STEP",
+    "ATLAS_POLY_KERNEL",
 };
 
-static_assert(GGML_OP_COUNT == 87, "GGML_OP_COUNT != 87");
+static_assert(GGML_OP_COUNT == 91, "GGML_OP_COUNT != 91");
 
 static const char * GGML_OP_SYMBOL[GGML_OP_COUNT] = {
     "none",
@@ -1115,9 +1120,14 @@ static const char * GGML_OP_SYMBOL[GGML_OP_COUNT] = {
     "adamw(x)",
 
     "glu(x)",
+
+    "atlas_mem_update(x,y,z)",
+    "atlas_omega(x,y)",
+    "atlas_muon(x,y)",
+    "atlas_poly(x)",
 };
 
-static_assert(GGML_OP_COUNT == 87, "GGML_OP_COUNT != 87");
+static_assert(GGML_OP_COUNT == 91, "GGML_OP_COUNT != 91");
 
 static_assert(GGML_OP_POOL_COUNT == 2, "GGML_OP_POOL_COUNT != 2");
 
@@ -5599,6 +5609,70 @@ struct ggml_tensor * ggml_opt_step_adamw(
     result->src[3] = v;
     result->src[4] = adamw_params;
 
+    return result;
+}
+
+// ATLAS operations
+
+struct ggml_tensor * ggml_atlas_memory_update(
+        struct ggml_context * ctx,
+        struct ggml_tensor  * memory,
+        struct ggml_tensor  * input,
+        struct ggml_tensor  * params) {
+    GGML_ASSERT(ggml_are_same_shape(memory, input));
+    
+    struct ggml_tensor * result = ggml_view_tensor(ctx, memory);
+    
+    result->op     = GGML_OP_ATLAS_MEMORY_UPDATE;
+    result->src[0] = memory;
+    result->src[1] = input;
+    result->src[2] = params;
+    
+    return result;
+}
+
+struct ggml_tensor * ggml_atlas_omega_rule(
+        struct ggml_context * ctx,
+        struct ggml_tensor  * memory,
+        struct ggml_tensor  * window,
+        float                 alpha) {
+    struct ggml_tensor * result = ggml_view_tensor(ctx, memory);
+    
+    result->op     = GGML_OP_ATLAS_OMEGA_RULE;
+    result->src[0] = memory;
+    result->src[1] = window;
+    result->op_params[0] = alpha;
+    
+    return result;
+}
+
+struct ggml_tensor * ggml_atlas_muon_step(
+        struct ggml_context * ctx,
+        struct ggml_tensor  * gradient,
+        struct ggml_tensor  * momentum,
+        int                   iterations) {
+    GGML_ASSERT(ggml_are_same_shape(gradient, momentum));
+    
+    struct ggml_tensor * result = ggml_view_tensor(ctx, gradient);
+    
+    result->op     = GGML_OP_ATLAS_MUON_STEP;
+    result->src[0] = gradient;
+    result->src[1] = momentum;
+    ggml_set_op_params_i32(result, 0, iterations);
+    
+    return result;
+}
+
+struct ggml_tensor * ggml_atlas_poly_kernel(
+        struct ggml_context * ctx,
+        struct ggml_tensor  * input,
+        int                   degree) {
+    struct ggml_tensor * result = ggml_dup_tensor(ctx, input);
+    
+    result->op     = GGML_OP_ATLAS_POLY_KERNEL;
+    result->src[0] = input;
+    ggml_set_op_params_i32(result, 0, degree);
+    
     return result;
 }
 

@@ -543,6 +543,12 @@ extern "C" {
 
         GGML_OP_GLU,
 
+        // ATLAS operations
+        GGML_OP_ATLAS_MEMORY_UPDATE,
+        GGML_OP_ATLAS_OMEGA_RULE,
+        GGML_OP_ATLAS_MUON_STEP,
+        GGML_OP_ATLAS_POLY_KERNEL,
+
         GGML_OP_COUNT,
     };
 
@@ -2294,6 +2300,33 @@ extern "C" {
             struct ggml_tensor  * m,
             struct ggml_tensor  * v,
             struct ggml_tensor  * adamw_params); // parameters such a the learning rate
+
+    //
+    // ATLAS operations
+    //
+
+    GGML_API struct ggml_tensor * ggml_atlas_memory_update(
+            struct ggml_context * ctx,
+            struct ggml_tensor  * memory,
+            struct ggml_tensor  * input,
+            struct ggml_tensor  * params);
+
+    GGML_API struct ggml_tensor * ggml_atlas_omega_rule(
+            struct ggml_context * ctx,
+            struct ggml_tensor  * memory,
+            struct ggml_tensor  * window,
+            float                 alpha);
+
+    GGML_API struct ggml_tensor * ggml_atlas_muon_step(
+            struct ggml_context * ctx,
+            struct ggml_tensor  * gradient,
+            struct ggml_tensor  * momentum,
+            int                   iterations);
+
+    GGML_API struct ggml_tensor * ggml_atlas_poly_kernel(
+            struct ggml_context * ctx,
+            struct ggml_tensor  * input,
+            int                   degree);
 
     //
     // automatic differentiation
