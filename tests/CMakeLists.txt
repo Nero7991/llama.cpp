@@ -212,6 +212,40 @@ set(LLAMA_TEST_NAME test-mtmd-c-api)
 llama_build_and_test(test-mtmd-c-api.c)
 target_link_libraries(${LLAMA_TEST_NAME} PRIVATE mtmd)
 
+# ATLAS tests - Advanced Tensor Learning and Attention System
+# Tests for ATLAS Phase 1 implementation components
+if (NOT GGML_BACKEND_DL)
+    # ATLAS tests require direct backend access
+    llama_build_and_test(test-atlas-types.cpp       LABEL "atlas")
+    llama_build_and_test(test-atlas-backend.cpp     LABEL "atlas")
+    llama_build_and_test(test-atlas-memory.cpp      LABEL "atlas")
+    llama_build_and_test(test-atlas-operations.cpp  LABEL "atlas")
+    llama_build_and_test(test-atlas-integration.cpp    LABEL "atlas")
+    llama_build_and_test(test-atlas-configurations.cpp LABEL "atlas")
+    
+    # Additional ATLAS test configuration
+    if (LLAMA_CUDA)
+        # CUDA-specific ATLAS tests
+        target_compile_definitions(test-atlas-backend PRIVATE ATLAS_CUDA_ENABLED)
+        target_compile_definitions(test-atlas-memory PRIVATE ATLAS_CUDA_ENABLED)
+        target_compile_definitions(test-atlas-operations PRIVATE ATLAS_CUDA_ENABLED)
+        target_compile_definitions(test-atlas-integration PRIVATE ATLAS_CUDA_ENABLED)
+        target_compile_definitions(test-atlas-configurations PRIVATE ATLAS_CUDA_ENABLED)
+    endif()
+    
+    if (LLAMA_METAL)
+        # Metal-specific ATLAS tests
+        target_compile_definitions(test-atlas-backend PRIVATE ATLAS_METAL_ENABLED)
+        target_compile_definitions(test-atlas-configurations PRIVATE ATLAS_METAL_ENABLED)
+    endif()
+    
+    if (LLAMA_OPENCL)
+        # OpenCL-specific ATLAS tests
+        target_compile_definitions(test-atlas-backend PRIVATE ATLAS_OPENCL_ENABLED)
+        target_compile_definitions(test-atlas-configurations PRIVATE ATLAS_OPENCL_ENABLED)
+    endif()
+endif()
+
 # dummy executable - not installed
 get_filename_component(TEST_TARGET test-c.c NAME_WE)
 add_executable(${TEST_TARGET} test-c.c)
