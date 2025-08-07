@@ -171,6 +171,11 @@ set   (GGML_CUDA_COMPRESSION_MODE "size" CACHE STRING
 set_property(CACHE GGML_CUDA_COMPRESSION_MODE PROPERTY STRINGS "none;speed;balance;size")
 
 option(GGML_HIP                             "ggml: use HIP"                                   OFF)
+
+# ATLAS options
+option(GGML_ATLAS                           "ggml: enable ATLAS support"                      OFF)
+option(GGML_ATLAS_CPU                       "ggml: enable ATLAS CPU backend"                  ON)
+option(GGML_ATLAS_CUDA                      "ggml: enable ATLAS CUDA backend"                 OFF)
 option(GGML_HIP_GRAPHS                      "ggml: use HIP graph, experimental, slow"         OFF)
 option(GGML_HIP_NO_VMM                      "ggml: do not try to use HIP VMM"                 ON)
 option(GGML_HIP_ROCWMMA_FATTN               "ggml: enable rocWMMA for FlashAttention"         OFF)
