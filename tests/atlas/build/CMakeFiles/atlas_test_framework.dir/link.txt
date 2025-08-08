@@ -1,0 +1,2 @@
+/usr/bin/ar qc libatlas_test_framework.a "CMakeFiles/atlas_test_framework.dir/framework/atlas-test-framework.cpp.o"
+/usr/bin/ranlib libatlas_test_framework.a
