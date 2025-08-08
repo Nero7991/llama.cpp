@@ -193,6 +193,7 @@ add_library(ggml-base
             ../include/ggml-backend.h
             ../include/ggml-cpp.h
             ../include/ggml-opt.h
+            ../include/ggml-atlas-memory.h
             ../include/gguf.h
             ggml.c
             ggml.cpp
@@ -203,6 +204,8 @@ add_library(ggml-base
             ggml-threading.h
             ggml-quants.c
             ggml-quants.h
+            atlas-memory.c
+            atlas-memory-cpu.c
             gguf.cpp)
 
 target_include_directories(ggml-base PRIVATE .)
