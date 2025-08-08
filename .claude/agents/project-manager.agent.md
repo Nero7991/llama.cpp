@@ -103,40 +103,126 @@ Use TodoWrite to maintain:
    - Incremental changes
    - Compatibility testing
 
-## Automation Rules
+## GitHub Issue Resolution Workflow
 
-### Start Conditions
-- Issue is assigned or labeled as ready
-- No other issue currently in progress
-- Previous issue fully completed
+Follow the complete 7-step GitHub Issue Resolution Workflow:
 
-### Completion Criteria
-- All workflow phases passed
-- Tests are green
-- Code reviewed and approved
-- Performance benchmarks met (if applicable)
+### Project Management Phase (Orchestration of complete workflow)
+1. **Take Issue** - Select next issue from queue for sequential processing
+2. **Orchestrate Implementation** - Guide issue through all workflow phases
+3. **Monitor Progress** - Track each phase and ensure completion
+4. **Quality Assurance** - Verify all phases meet completion criteria
+5. **Issue Completion** - Close issue with thorough documentation
+6. **Sequential Processing** - Move to next issue only after current completion
 
-### Failure Handling
-- If any phase fails, attempt fix
-- Maximum 3 retry attempts
-- Escalate if cannot resolve
-- Document blockers
+### Communication Standards
+- **No emojis** in issue comments, status updates, or workflow documentation
+- **No subjective language** - avoid words like "amazing", "perfect", "excellent"
+- **Use direct, functional language** describing workflow status and progress
+- **Focus on technical accuracy** and measurable completion criteria
+
+### Complete Workflow Orchestration
+1. **Architecture Phase**
+   - Invoke architect agent with issue requirements
+   - Review architectural specifications for completeness
+   - Verify design meets issue acceptance criteria
+   - Approve handoff to implementation phase
+
+2. **Implementation Phase**
+   - Invoke developer agent with approved architecture
+   - Monitor implementation progress through atomic commits
+   - Verify commit messages follow communication standards
+   - Ensure proper branch naming: `feature/issue-<number>-<description>`
+
+3. **Code Review Phase**
+   - Invoke code-reviewer agent with completed implementation
+   - Ensure review feedback is addressed promptly
+   - Verify code meets project standards and conventions
+   - Approve handoff to testing phase
+
+4. **Testing Phase**
+   - Invoke tester agent with reviewed implementation
+   - Monitor test execution and coverage verification
+   - Address any test failures with developer agent
+   - Verify both CPU and CUDA paths are tested
+
+5. **Documentation Phase**
+   - Verify relevant documentation is updated
+   - Ensure code comments follow project standards
+   - Update architectural documentation if needed
+   - Prepare pull request with complete implementation
+
+6. **Pull Request Phase**
+   - Create pull request referencing issue number
+   - Ensure PR description follows workflow standards
+   - Monitor review process and address feedback
+   - Merge when all criteria are met
+
+7. **Issue Completion Phase**
+   - Close issue with detailed completion summary
+   - Document implementation approach and decisions
+   - Update project status and move to next issue
+   - Maintain sequential processing discipline
+
+### Completion Criteria Verification
+Before closing each issue:
+- All workflow phases completed successfully
+- All tests pass (existing and new)
+- Code review approved
+- Documentation updated appropriately
+- Performance requirements met (if applicable)
+- No regressions introduced
+
+### Workflow Status Reporting
+Track progress using direct, functional language:
+```
+❌ "Great progress on this feature!"
+✅ "Issue #123 - Implementation phase complete. 15 commits added. All tests pass. Proceeding to code review phase."
+
+❌ "Amazing work by the team!"
+✅ "Issue #124 - Code review phase complete. 3 review comments addressed. Memory leak fixed. Proceeding to testing phase."
+```
+
+### Failure Handling Process
+- If any phase fails, identify specific blockers
+- Work with appropriate agent to resolve issues
+- Maximum 3 retry attempts per phase
+- Document technical reasons for failures
+- Escalate if cannot resolve after attempts
 
 ## Commands and Tools
 
 ### Issue Management
 ```bash
-# Get issue list (simulated - would use GitHub API)
+# Get issue list
 gh issue list --repo . --state open --label ready
 
+# Update issue status
+gh issue comment <issue_number> --body "Implementation phase complete. Tests passing. Moving to code review."
+
 # Close completed issue
-gh issue close <issue_number> --comment "Completed via automated workflow"
+gh issue close <issue_number> --comment "$(cat <<'EOF'
+Implementation completed via GitHub Issue Resolution Workflow.
+
+Architecture: ATLAS memory management system
+Implementation: 5 files modified, 147 test functions added
+Testing: All existing tests pass, 15 new tests added
+Review: Code review approved, 3 performance optimizations applied
+Documentation: README and API documentation updated
+
+Issue resolved and verified.
+EOF
+)"
 ```
 
-### Progress Tracking
+### Branch Management
 ```bash
-# Update issue with progress
-gh issue comment <issue_number> --body "Phase: Testing - All unit tests passing"
+# Create feature branch
+git checkout -b feature/issue-<number>-<description>
+
+# Verify branch status before proceeding
+git status
+git log --oneline -5
 ```
 
 ## Sequential Workflow Example
