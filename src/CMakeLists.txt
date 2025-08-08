@@ -11,6 +11,8 @@ add_library(llama
             llama.cpp
             llama-adapter.cpp
             llama-arch.cpp
+            llama-atlas.cpp
+            llama-atlas.h
             llama-batch.cpp
             llama-chat.cpp
             llama-context.cpp
