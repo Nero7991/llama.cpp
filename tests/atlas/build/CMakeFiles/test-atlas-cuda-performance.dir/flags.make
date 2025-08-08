@@ -3,15 +3,15 @@
 
 # compile CUDA with /usr/local/cuda/bin/nvcc
 # compile CXX with /usr/bin/c++
-CUDA_DEFINES = 
+CUDA_DEFINES = -DCUDA_FOUND=1
 
 CUDA_INCLUDES = --options-file CMakeFiles/test-atlas-cuda-performance.dir/includes_CUDA.rsp
 
 CUDA_FLAGS = -O3 -DNDEBUG -std=c++17 "--generate-code=arch=compute_60,code=[compute_60,sm_60]" "--generate-code=arch=compute_70,code=[compute_70,sm_70]" "--generate-code=arch=compute_75,code=[compute_75,sm_75]" "--generate-code=arch=compute_80,code=[compute_80,sm_80]" "--generate-code=arch=compute_86,code=[compute_86,sm_86]"
 
-CXX_DEFINES = 
+CXX_DEFINES = -DCUDA_FOUND=1
 
-CXX_INCLUDES = -I/home/orencollaco/GitHub/llama.cpp/tests/atlas/../../src -I/home/orencollaco/GitHub/llama.cpp/tests/atlas/../../ggml/include
+CXX_INCLUDES = -I/home/orencollaco/GitHub/llama.cpp/tests/atlas/../../src -I/home/orencollaco/GitHub/llama.cpp/tests/atlas/../../ggml/include -I/home/orencollaco/GitHub/llama.cpp/tests/atlas/../../common -I/home/orencollaco/GitHub/llama.cpp/tests/atlas/../.. -I/usr/local/cuda/targets/x86_64-linux/include
 
 CXX_FLAGS =  -Wall -Wextra -O2 -O3 -DNDEBUG -std=gnu++17
 

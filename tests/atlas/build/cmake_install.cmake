@@ -52,6 +52,10 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin/atlas-tests" TYPE EXECUTABLE OPTIONAL FILES "/home/orencollaco/GitHub/llama.cpp/tests/atlas/build/test-atlas-comprehensive")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/atlas-tests/test-atlas-comprehensive" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/atlas-tests/test-atlas-comprehensive")
+    file(RPATH_CHANGE
+         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/atlas-tests/test-atlas-comprehensive"
+         OLD_RPATH "/home/orencollaco/GitHub/llama.cpp/tests/atlas/../../build/bin:/home/orencollaco/GitHub/llama.cpp/tests/atlas/../../build/common:/home/orencollaco/GitHub/llama.cpp/tests/atlas/../../build/src:"
+         NEW_RPATH "")
     if(CMAKE_INSTALL_DO_STRIP)
       execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/atlas-tests/test-atlas-comprehensive")
     endif()
@@ -72,6 +76,10 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin/atlas-tests" TYPE EXECUTABLE OPTIONAL FILES "/home/orencollaco/GitHub/llama.cpp/tests/atlas/build/test-memory-module")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/atlas-tests/test-memory-module" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/atlas-tests/test-memory-module")
+    file(RPATH_CHANGE
+         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/atlas-tests/test-memory-module"
+         OLD_RPATH "/home/orencollaco/GitHub/llama.cpp/tests/atlas/../../build/bin:/home/orencollaco/GitHub/llama.cpp/tests/atlas/../../build/common:/home/orencollaco/GitHub/llama.cpp/tests/atlas/../../build/src:"
+         NEW_RPATH "")
     if(CMAKE_INSTALL_DO_STRIP)
       execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/atlas-tests/test-memory-module")
     endif()
@@ -92,6 +100,10 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin/atlas-tests" TYPE EXECUTABLE OPTIONAL FILES "/home/orencollaco/GitHub/llama.cpp/tests/atlas/build/test-omega-rule")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/atlas-tests/test-omega-rule" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/atlas-tests/test-omega-rule")
+    file(RPATH_CHANGE
+         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/atlas-tests/test-omega-rule"
+         OLD_RPATH "/home/orencollaco/GitHub/llama.cpp/tests/atlas/../../build/bin:/home/orencollaco/GitHub/llama.cpp/tests/atlas/../../build/common:/home/orencollaco/GitHub/llama.cpp/tests/atlas/../../build/src:"
+         NEW_RPATH "")
     if(CMAKE_INSTALL_DO_STRIP)
       execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/atlas-tests/test-omega-rule")
     endif()
@@ -112,6 +124,10 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin/atlas-tests" TYPE EXECUTABLE OPTIONAL FILES "/home/orencollaco/GitHub/llama.cpp/tests/atlas/build/test-atlas-integration")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/atlas-tests/test-atlas-integration" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/atlas-tests/test-atlas-integration")
+    file(RPATH_CHANGE
+         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/atlas-tests/test-atlas-integration"
+         OLD_RPATH "/home/orencollaco/GitHub/llama.cpp/tests/atlas/../../build/bin:/home/orencollaco/GitHub/llama.cpp/tests/atlas/../../build/common:/home/orencollaco/GitHub/llama.cpp/tests/atlas/../../build/src:"
+         NEW_RPATH "")
     if(CMAKE_INSTALL_DO_STRIP)
       execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/atlas-tests/test-atlas-integration")
     endif()
@@ -132,6 +148,10 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin/atlas-tests" TYPE EXECUTABLE OPTIONAL FILES "/home/orencollaco/GitHub/llama.cpp/tests/atlas/build/test-atlas-benchmark")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/atlas-tests/test-atlas-benchmark" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/atlas-tests/test-atlas-benchmark")
+    file(RPATH_CHANGE
+         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/atlas-tests/test-atlas-benchmark"
+         OLD_RPATH "/home/orencollaco/GitHub/llama.cpp/tests/atlas/../../build/bin:/home/orencollaco/GitHub/llama.cpp/tests/atlas/../../build/common:/home/orencollaco/GitHub/llama.cpp/tests/atlas/../../build/src:"
+         NEW_RPATH "")
     if(CMAKE_INSTALL_DO_STRIP)
       execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/atlas-tests/test-atlas-benchmark")
     endif()

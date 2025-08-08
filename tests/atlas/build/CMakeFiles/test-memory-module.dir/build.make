@@ -112,6 +112,10 @@ test-memory-module: CMakeFiles/test-memory-module.dir/test-memory-module.cpp.o
 test-memory-module: CMakeFiles/test-memory-module.dir/home/orencollaco/GitHub/llama.cpp/src/llama-atlas.cpp.o
 test-memory-module: CMakeFiles/test-memory-module.dir/build.make
 test-memory-module: libatlas_test_framework.a
+test-memory-module: /home/orencollaco/GitHub/llama.cpp/tests/atlas/../../build/bin/libggml-base.so
+test-memory-module: /home/orencollaco/GitHub/llama.cpp/tests/atlas/../../build/bin/libggml.so
+test-memory-module: /home/orencollaco/GitHub/llama.cpp/tests/atlas/../../build/bin/libllama.so
+test-memory-module: /home/orencollaco/GitHub/llama.cpp/tests/atlas/../../build/common/libcommon.a
 test-memory-module: CMakeFiles/test-memory-module.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/orencollaco/GitHub/llama.cpp/tests/atlas/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable test-memory-module"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/test-memory-module.dir/link.txt --verbose=$(VERBOSE)

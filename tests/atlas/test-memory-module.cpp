@@ -1,6 +1,7 @@
 #include "framework/atlas-test-framework.h"
 #include <iostream>
 #include <vector>
+#include <cmath>
 
 using namespace atlas::testing;
 

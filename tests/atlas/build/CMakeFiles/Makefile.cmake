@@ -76,6 +76,8 @@ set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/test-memory-module.dir/DependInfo.cmake"
   "CMakeFiles/test-omega-rule.dir/DependInfo.cmake"
   "CMakeFiles/test-atlas-cuda-performance.dir/DependInfo.cmake"
+  "CMakeFiles/test-atlas-gpu-stress.dir/DependInfo.cmake"
+  "CMakeFiles/test-atlas-cuda-kernels.dir/DependInfo.cmake"
   "CMakeFiles/test-atlas-integration.dir/DependInfo.cmake"
   "CMakeFiles/test-atlas-benchmark.dir/DependInfo.cmake"
   "CMakeFiles/run-atlas-tests.dir/DependInfo.cmake"

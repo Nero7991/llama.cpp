@@ -68,6 +68,8 @@ all: CMakeFiles/test-atlas-comprehensive.dir/all
 all: CMakeFiles/test-memory-module.dir/all
 all: CMakeFiles/test-omega-rule.dir/all
 all: CMakeFiles/test-atlas-cuda-performance.dir/all
+all: CMakeFiles/test-atlas-gpu-stress.dir/all
+all: CMakeFiles/test-atlas-cuda-kernels.dir/all
 all: CMakeFiles/test-atlas-integration.dir/all
 all: CMakeFiles/test-atlas-benchmark.dir/all
 .PHONY : all
@@ -78,6 +80,8 @@ codegen: CMakeFiles/test-atlas-comprehensive.dir/codegen
 codegen: CMakeFiles/test-memory-module.dir/codegen
 codegen: CMakeFiles/test-omega-rule.dir/codegen
 codegen: CMakeFiles/test-atlas-cuda-performance.dir/codegen
+codegen: CMakeFiles/test-atlas-gpu-stress.dir/codegen
+codegen: CMakeFiles/test-atlas-cuda-kernels.dir/codegen
 codegen: CMakeFiles/test-atlas-integration.dir/codegen
 codegen: CMakeFiles/test-atlas-benchmark.dir/codegen
 .PHONY : codegen
@@ -92,6 +96,8 @@ clean: CMakeFiles/test-atlas-comprehensive.dir/clean
 clean: CMakeFiles/test-memory-module.dir/clean
 clean: CMakeFiles/test-omega-rule.dir/clean
 clean: CMakeFiles/test-atlas-cuda-performance.dir/clean
+clean: CMakeFiles/test-atlas-gpu-stress.dir/clean
+clean: CMakeFiles/test-atlas-cuda-kernels.dir/clean
 clean: CMakeFiles/test-atlas-integration.dir/clean
 clean: CMakeFiles/test-atlas-benchmark.dir/clean
 clean: CMakeFiles/run-atlas-tests.dir/clean
@@ -169,7 +175,7 @@ CMakeFiles/test-atlas-comprehensive.dir/clean:
 CMakeFiles/test-memory-module.dir/all: CMakeFiles/atlas_test_framework.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-memory-module.dir/build.make CMakeFiles/test-memory-module.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-memory-module.dir/build.make CMakeFiles/test-memory-module.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/orencollaco/GitHub/llama.cpp/tests/atlas/build/CMakeFiles --progress-num=18,19,20 "Built target test-memory-module"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/orencollaco/GitHub/llama.cpp/tests/atlas/build/CMakeFiles --progress-num=25,26,27 "Built target test-memory-module"
 .PHONY : CMakeFiles/test-memory-module.dir/all
 
 # Build rule for subdir invocation for target.
@@ -200,7 +206,7 @@ CMakeFiles/test-memory-module.dir/clean:
 CMakeFiles/test-omega-rule.dir/all: CMakeFiles/atlas_test_framework.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-omega-rule.dir/build.make CMakeFiles/test-omega-rule.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-omega-rule.dir/build.make CMakeFiles/test-omega-rule.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/orencollaco/GitHub/llama.cpp/tests/atlas/build/CMakeFiles --progress-num=21,22,23 "Built target test-omega-rule"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/orencollaco/GitHub/llama.cpp/tests/atlas/build/CMakeFiles --progress-num=28,29,30 "Built target test-omega-rule"
 .PHONY : CMakeFiles/test-omega-rule.dir/all
 
 # Build rule for subdir invocation for target.
@@ -231,7 +237,7 @@ CMakeFiles/test-omega-rule.dir/clean:
 CMakeFiles/test-atlas-cuda-performance.dir/all: CMakeFiles/atlas_test_framework.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-atlas-cuda-performance.dir/build.make CMakeFiles/test-atlas-cuda-performance.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-atlas-cuda-performance.dir/build.make CMakeFiles/test-atlas-cuda-performance.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/orencollaco/GitHub/llama.cpp/tests/atlas/build/CMakeFiles --progress-num=9,10,11,12,13,14 "Built target test-atlas-cuda-performance"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/orencollaco/GitHub/llama.cpp/tests/atlas/build/CMakeFiles --progress-num=13,14,15,16,17,18 "Built target test-atlas-cuda-performance"
 .PHONY : CMakeFiles/test-atlas-cuda-performance.dir/all
 
 # Build rule for subdir invocation for target.
@@ -256,13 +262,75 @@ CMakeFiles/test-atlas-cuda-performance.dir/clean:
 .PHONY : CMakeFiles/test-atlas-cuda-performance.dir/clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/test-atlas-gpu-stress.dir
+
+# All Build rule for target.
+CMakeFiles/test-atlas-gpu-stress.dir/all: CMakeFiles/atlas_test_framework.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-atlas-gpu-stress.dir/build.make CMakeFiles/test-atlas-gpu-stress.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-atlas-gpu-stress.dir/build.make CMakeFiles/test-atlas-gpu-stress.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/orencollaco/GitHub/llama.cpp/tests/atlas/build/CMakeFiles --progress-num=19,20,21 "Built target test-atlas-gpu-stress"
+.PHONY : CMakeFiles/test-atlas-gpu-stress.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/test-atlas-gpu-stress.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/orencollaco/GitHub/llama.cpp/tests/atlas/build/CMakeFiles 5
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test-atlas-gpu-stress.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/orencollaco/GitHub/llama.cpp/tests/atlas/build/CMakeFiles 0
+.PHONY : CMakeFiles/test-atlas-gpu-stress.dir/rule
+
+# Convenience name for target.
+test-atlas-gpu-stress: CMakeFiles/test-atlas-gpu-stress.dir/rule
+.PHONY : test-atlas-gpu-stress
+
+# codegen rule for target.
+CMakeFiles/test-atlas-gpu-stress.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-atlas-gpu-stress.dir/build.make CMakeFiles/test-atlas-gpu-stress.dir/codegen
+.PHONY : CMakeFiles/test-atlas-gpu-stress.dir/codegen
+
+# clean rule for target.
+CMakeFiles/test-atlas-gpu-stress.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-atlas-gpu-stress.dir/build.make CMakeFiles/test-atlas-gpu-stress.dir/clean
+.PHONY : CMakeFiles/test-atlas-gpu-stress.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/test-atlas-cuda-kernels.dir
+
+# All Build rule for target.
+CMakeFiles/test-atlas-cuda-kernels.dir/all: CMakeFiles/atlas_test_framework.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-atlas-cuda-kernels.dir/build.make CMakeFiles/test-atlas-cuda-kernels.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-atlas-cuda-kernels.dir/build.make CMakeFiles/test-atlas-cuda-kernels.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/orencollaco/GitHub/llama.cpp/tests/atlas/build/CMakeFiles --progress-num=9,10,11,12 "Built target test-atlas-cuda-kernels"
+.PHONY : CMakeFiles/test-atlas-cuda-kernels.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/test-atlas-cuda-kernels.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/orencollaco/GitHub/llama.cpp/tests/atlas/build/CMakeFiles 6
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test-atlas-cuda-kernels.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/orencollaco/GitHub/llama.cpp/tests/atlas/build/CMakeFiles 0
+.PHONY : CMakeFiles/test-atlas-cuda-kernels.dir/rule
+
+# Convenience name for target.
+test-atlas-cuda-kernels: CMakeFiles/test-atlas-cuda-kernels.dir/rule
+.PHONY : test-atlas-cuda-kernels
+
+# codegen rule for target.
+CMakeFiles/test-atlas-cuda-kernels.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-atlas-cuda-kernels.dir/build.make CMakeFiles/test-atlas-cuda-kernels.dir/codegen
+.PHONY : CMakeFiles/test-atlas-cuda-kernels.dir/codegen
+
+# clean rule for target.
+CMakeFiles/test-atlas-cuda-kernels.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-atlas-cuda-kernels.dir/build.make CMakeFiles/test-atlas-cuda-kernels.dir/clean
+.PHONY : CMakeFiles/test-atlas-cuda-kernels.dir/clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/test-atlas-integration.dir
 
 # All Build rule for target.
 CMakeFiles/test-atlas-integration.dir/all: CMakeFiles/atlas_test_framework.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-atlas-integration.dir/build.make CMakeFiles/test-atlas-integration.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-atlas-integration.dir/build.make CMakeFiles/test-atlas-integration.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/orencollaco/GitHub/llama.cpp/tests/atlas/build/CMakeFiles --progress-num=15,16,17 "Built target test-atlas-integration"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/orencollaco/GitHub/llama.cpp/tests/atlas/build/CMakeFiles --progress-num=22,23,24 "Built target test-atlas-integration"
 .PHONY : CMakeFiles/test-atlas-integration.dir/all
 
 # Build rule for subdir invocation for target.

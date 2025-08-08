@@ -112,6 +112,10 @@ test-atlas-comprehensive: CMakeFiles/test-atlas-comprehensive.dir/test-atlas-com
 test-atlas-comprehensive: CMakeFiles/test-atlas-comprehensive.dir/home/orencollaco/GitHub/llama.cpp/src/llama-atlas.cpp.o
 test-atlas-comprehensive: CMakeFiles/test-atlas-comprehensive.dir/build.make
 test-atlas-comprehensive: libatlas_test_framework.a
+test-atlas-comprehensive: /home/orencollaco/GitHub/llama.cpp/tests/atlas/../../build/bin/libggml-base.so
+test-atlas-comprehensive: /home/orencollaco/GitHub/llama.cpp/tests/atlas/../../build/bin/libggml.so
+test-atlas-comprehensive: /home/orencollaco/GitHub/llama.cpp/tests/atlas/../../build/bin/libllama.so
+test-atlas-comprehensive: /home/orencollaco/GitHub/llama.cpp/tests/atlas/../../build/common/libcommon.a
 test-atlas-comprehensive: CMakeFiles/test-atlas-comprehensive.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/orencollaco/GitHub/llama.cpp/tests/atlas/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable test-atlas-comprehensive"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/test-atlas-comprehensive.dir/link.txt --verbose=$(VERBOSE)

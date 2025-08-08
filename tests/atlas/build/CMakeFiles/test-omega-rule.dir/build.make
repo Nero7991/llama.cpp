@@ -112,6 +112,10 @@ test-omega-rule: CMakeFiles/test-omega-rule.dir/test-omega-rule.cpp.o
 test-omega-rule: CMakeFiles/test-omega-rule.dir/home/orencollaco/GitHub/llama.cpp/src/llama-atlas.cpp.o
 test-omega-rule: CMakeFiles/test-omega-rule.dir/build.make
 test-omega-rule: libatlas_test_framework.a
+test-omega-rule: /home/orencollaco/GitHub/llama.cpp/tests/atlas/../../build/bin/libggml-base.so
+test-omega-rule: /home/orencollaco/GitHub/llama.cpp/tests/atlas/../../build/bin/libggml.so
+test-omega-rule: /home/orencollaco/GitHub/llama.cpp/tests/atlas/../../build/bin/libllama.so
+test-omega-rule: /home/orencollaco/GitHub/llama.cpp/tests/atlas/../../build/common/libcommon.a
 test-omega-rule: CMakeFiles/test-omega-rule.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/orencollaco/GitHub/llama.cpp/tests/atlas/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable test-omega-rule"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/test-omega-rule.dir/link.txt --verbose=$(VERBOSE)

@@ -3,15 +3,15 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include "../ggml.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-// Forward declarations
+// Forward declarations  
 struct ggml_tensor;
 struct ggml_context;
-typedef int ggml_type;
 
 // ATLAS configuration constants
 #define ATLAS_MAX_DIMS 4

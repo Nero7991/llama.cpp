@@ -3,6 +3,8 @@
 /home/orencollaco/GitHub/llama.cpp/tests/atlas/build/CMakeFiles/test-memory-module.dir
 /home/orencollaco/GitHub/llama.cpp/tests/atlas/build/CMakeFiles/test-omega-rule.dir
 /home/orencollaco/GitHub/llama.cpp/tests/atlas/build/CMakeFiles/test-atlas-cuda-performance.dir
+/home/orencollaco/GitHub/llama.cpp/tests/atlas/build/CMakeFiles/test-atlas-gpu-stress.dir
+/home/orencollaco/GitHub/llama.cpp/tests/atlas/build/CMakeFiles/test-atlas-cuda-kernels.dir
 /home/orencollaco/GitHub/llama.cpp/tests/atlas/build/CMakeFiles/test-atlas-integration.dir
 /home/orencollaco/GitHub/llama.cpp/tests/atlas/build/CMakeFiles/test-atlas-benchmark.dir
 /home/orencollaco/GitHub/llama.cpp/tests/atlas/build/CMakeFiles/run-atlas-tests.dir

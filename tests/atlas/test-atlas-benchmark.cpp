@@ -5,6 +5,9 @@
 #include <chrono>
 #include <algorithm>
 #include <fstream>
+#include <cmath>
+#include <numeric>
+#include <cstring>
 
 using namespace atlas::testing;
 
@@ -22,7 +25,7 @@ public:
         const int warmup_runs = 10;
         
         struct atlas_config config = atlas_config_default();
-        config.memory_pool_size = 512 * 1024 * 1024; // 512MB
+        config.memory_pool_size = 12ULL * 1024 * 1024 * 1024; // 12GB
         
         std::cout << "Configuration,Batch,SeqLen,HiddenDim,AvgTime(ms),StdDev(ms),TokensPerSec,GFLOPS" << std::endl;
         
@@ -35,7 +38,7 @@ public:
                     if (!atlas_ctx) continue;
                     
                     struct ggml_init_params ggml_params = {};
-                    ggml_params.mem_size = (size_t)(batch_size * seq_len * hidden_dim) * 2 * sizeof(float) + 64 * 1024;
+                    ggml_params.mem_size = 2ULL * 1024 * 1024 * 1024; // 2GB for GGML context
                     ggml_params.mem_buffer = nullptr;
                     ggml_params.no_alloc = false;
                     
@@ -125,13 +128,13 @@ public:
         for (int n_layers : layer_counts) {
             struct atlas_config config = atlas_config_default();
             config.max_sequence_length = seq_len;
-            config.memory_pool_size = n_layers * 64 * 1024 * 1024; // 64MB per layer
+            config.memory_pool_size = 12ULL * 1024 * 1024 * 1024; // 12GB
             
             struct atlas_context* atlas_ctx = atlas_init(&config, n_layers);
             if (!atlas_ctx) continue;
             
             struct ggml_init_params ggml_params = {};
-            ggml_params.mem_size = (size_t)(batch_size * seq_len * hidden_dim * n_layers) * 2 * sizeof(float) + 1024 * 1024;
+            ggml_params.mem_size = 4ULL * 1024 * 1024 * 1024; // 4GB for multi-layer GGML context
             ggml_params.mem_buffer = nullptr;
             ggml_params.no_alloc = false;
             
@@ -276,7 +279,7 @@ public:
         if (!atlas_ctx) return;
         
         struct ggml_init_params ggml_params = {};
-        ggml_params.mem_size = (size_t)(batch_size * seq_len * hidden_dim) * 4 * sizeof(float);
+        ggml_params.mem_size = 1ULL * 1024 * 1024 * 1024; // 1GB for latency analysis
         ggml_params.mem_buffer = nullptr;
         ggml_params.no_alloc = false;
         

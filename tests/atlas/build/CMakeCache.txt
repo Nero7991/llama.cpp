@@ -384,15 +384,6 @@ CUDA_nvToolsExt_LIBRARY:FILEPATH=/usr/local/cuda/lib64/libnvToolsExt.so
 //Path to a library.
 CUDA_rt_LIBRARY:FILEPATH=/usr/lib/x86_64-linux-gnu/librt.a
 
-//Value Computed by CMake
-Project_BINARY_DIR:STATIC=/home/orencollaco/GitHub/llama.cpp/tests/atlas/build
-
-//Value Computed by CMake
-Project_IS_TOP_LEVEL:STATIC=ON
-
-//Value Computed by CMake
-Project_SOURCE_DIR:STATIC=/home/orencollaco/GitHub/llama.cpp/tests/atlas
-
 
 ########################
 # INTERNAL cache entries

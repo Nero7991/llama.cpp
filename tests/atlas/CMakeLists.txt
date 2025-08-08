@@ -13,6 +13,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Include directories
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../src)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../ggml/include)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../common)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../)
+
+# Link directories for finding GGML libraries
+link_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../build/bin)
+link_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../build/common)
+link_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../build/src)
 
 # Source files for the test framework
 set(ATLAS_TEST_FRAMEWORK_SOURCES
@@ -21,8 +28,13 @@ set(ATLAS_TEST_FRAMEWORK_SOURCES
 
 # Common libraries to link against
 set(ATLAS_TEST_LIBRARIES 
-    ggml
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../build/bin/libggml-base.so
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../build/bin/libggml.so
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../build/bin/libllama.so
+    ${CMAKE_CURRENT_SOURCE_DIR}/../../build/common/libcommon.a
     pthread
+    m
+    dl
 )
 
 # Add ATLAS implementation sources
@@ -81,6 +93,7 @@ target_link_libraries(test-omega-rule
 # CUDA-specific tests if CUDA is available
 if(CUDA_FOUND)
     enable_language(CUDA)
+    add_compile_definitions(CUDA_FOUND=1)
     
     set(CUDA_TEST_SOURCES
         ../../ggml/src/ggml-cuda/atlas-cuda.cu
@@ -93,16 +106,55 @@ if(CUDA_FOUND)
         ${CUDA_TEST_SOURCES}
     )
     
+    # GPU stress test executable
+    add_executable(test-atlas-gpu-stress
+        test-atlas-gpu-stress.cpp
+        ${ATLAS_IMPLEMENTATION_SOURCES}
+    )
+    
+    # CUDA kernels test executable
+    add_executable(test-atlas-cuda-kernels
+        test-atlas-cuda-kernels.cu
+        ${ATLAS_IMPLEMENTATION_SOURCES}
+    )
+    
+    # Include CUDA headers
+    target_include_directories(test-atlas-cuda-performance PRIVATE ${CMAKE_CUDA_TOOLKIT_INCLUDE_DIRECTORIES})
+    target_include_directories(test-atlas-gpu-stress PRIVATE ${CMAKE_CUDA_TOOLKIT_INCLUDE_DIRECTORIES})
+    target_include_directories(test-atlas-cuda-kernels PRIVATE ${CMAKE_CUDA_TOOLKIT_INCLUDE_DIRECTORIES})
+    
     target_link_libraries(test-atlas-cuda-performance 
         atlas_test_framework 
         ${ATLAS_TEST_LIBRARIES}
         ${CUDA_LIBRARIES}
+        cudart
+        cublas
+    )
+    
+    target_link_libraries(test-atlas-gpu-stress 
+        atlas_test_framework 
+        ${ATLAS_TEST_LIBRARIES}
+        ${CUDA_LIBRARIES}
+        /usr/local/cuda-12.4/targets/x86_64-linux/lib/libcudart.so
+        /usr/local/cuda-12.4/targets/x86_64-linux/lib/libcublas.so
+    )
+    
+    target_link_libraries(test-atlas-cuda-kernels 
+        atlas_test_framework 
+        ${ATLAS_TEST_LIBRARIES}
+        ${CUDA_LIBRARIES}
+        /usr/local/cuda-12.4/targets/x86_64-linux/lib/libcudart.so
+        /usr/local/cuda-12.4/targets/x86_64-linux/lib/libcublas.so
     )
     
     set_property(TARGET test-atlas-cuda-performance PROPERTY CUDA_SEPARABLE_COMPILATION ON)
+    set_property(TARGET test-atlas-gpu-stress PROPERTY CUDA_SEPARABLE_COMPILATION ON)
+    set_property(TARGET test-atlas-cuda-kernels PROPERTY CUDA_SEPARABLE_COMPILATION ON)
     
     # Set CUDA architecture
     set_property(TARGET test-atlas-cuda-performance PROPERTY CUDA_ARCHITECTURES "60;70;75;80;86")
+    set_property(TARGET test-atlas-gpu-stress PROPERTY CUDA_ARCHITECTURES "60;70;75;80;86")
+    set_property(TARGET test-atlas-cuda-kernels PROPERTY CUDA_ARCHITECTURES "60;70;75;80;86")
     
 endif()
 

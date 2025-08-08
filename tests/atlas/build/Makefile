@@ -237,6 +237,32 @@ test-atlas-cuda-performance/fast:
 .PHONY : test-atlas-cuda-performance/fast
 
 #=============================================================================
+# Target rules for targets named test-atlas-gpu-stress
+
+# Build rule for target.
+test-atlas-gpu-stress: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test-atlas-gpu-stress
+.PHONY : test-atlas-gpu-stress
+
+# fast build rule for target.
+test-atlas-gpu-stress/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-atlas-gpu-stress.dir/build.make CMakeFiles/test-atlas-gpu-stress.dir/build
+.PHONY : test-atlas-gpu-stress/fast
+
+#=============================================================================
+# Target rules for targets named test-atlas-cuda-kernels
+
+# Build rule for target.
+test-atlas-cuda-kernels: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test-atlas-cuda-kernels
+.PHONY : test-atlas-cuda-kernels
+
+# fast build rule for target.
+test-atlas-cuda-kernels/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-atlas-cuda-kernels.dir/build.make CMakeFiles/test-atlas-cuda-kernels.dir/build
+.PHONY : test-atlas-cuda-kernels/fast
+
+#=============================================================================
 # Target rules for targets named test-atlas-integration
 
 # Build rule for target.
@@ -395,6 +421,8 @@ home/orencollaco/GitHub/llama.cpp/src/llama-atlas.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-memory-module.dir/build.make CMakeFiles/test-memory-module.dir/home/orencollaco/GitHub/llama.cpp/src/llama-atlas.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-omega-rule.dir/build.make CMakeFiles/test-omega-rule.dir/home/orencollaco/GitHub/llama.cpp/src/llama-atlas.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-atlas-cuda-performance.dir/build.make CMakeFiles/test-atlas-cuda-performance.dir/home/orencollaco/GitHub/llama.cpp/src/llama-atlas.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-atlas-gpu-stress.dir/build.make CMakeFiles/test-atlas-gpu-stress.dir/home/orencollaco/GitHub/llama.cpp/src/llama-atlas.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-atlas-cuda-kernels.dir/build.make CMakeFiles/test-atlas-cuda-kernels.dir/home/orencollaco/GitHub/llama.cpp/src/llama-atlas.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-atlas-integration.dir/build.make CMakeFiles/test-atlas-integration.dir/home/orencollaco/GitHub/llama.cpp/src/llama-atlas.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-atlas-benchmark.dir/build.make CMakeFiles/test-atlas-benchmark.dir/home/orencollaco/GitHub/llama.cpp/src/llama-atlas.cpp.o
 .PHONY : home/orencollaco/GitHub/llama.cpp/src/llama-atlas.cpp.o
@@ -408,6 +436,8 @@ home/orencollaco/GitHub/llama.cpp/src/llama-atlas.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-memory-module.dir/build.make CMakeFiles/test-memory-module.dir/home/orencollaco/GitHub/llama.cpp/src/llama-atlas.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-omega-rule.dir/build.make CMakeFiles/test-omega-rule.dir/home/orencollaco/GitHub/llama.cpp/src/llama-atlas.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-atlas-cuda-performance.dir/build.make CMakeFiles/test-atlas-cuda-performance.dir/home/orencollaco/GitHub/llama.cpp/src/llama-atlas.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-atlas-gpu-stress.dir/build.make CMakeFiles/test-atlas-gpu-stress.dir/home/orencollaco/GitHub/llama.cpp/src/llama-atlas.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-atlas-cuda-kernels.dir/build.make CMakeFiles/test-atlas-cuda-kernels.dir/home/orencollaco/GitHub/llama.cpp/src/llama-atlas.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-atlas-integration.dir/build.make CMakeFiles/test-atlas-integration.dir/home/orencollaco/GitHub/llama.cpp/src/llama-atlas.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-atlas-benchmark.dir/build.make CMakeFiles/test-atlas-benchmark.dir/home/orencollaco/GitHub/llama.cpp/src/llama-atlas.cpp.i
 .PHONY : home/orencollaco/GitHub/llama.cpp/src/llama-atlas.cpp.i
@@ -421,6 +451,8 @@ home/orencollaco/GitHub/llama.cpp/src/llama-atlas.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-memory-module.dir/build.make CMakeFiles/test-memory-module.dir/home/orencollaco/GitHub/llama.cpp/src/llama-atlas.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-omega-rule.dir/build.make CMakeFiles/test-omega-rule.dir/home/orencollaco/GitHub/llama.cpp/src/llama-atlas.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-atlas-cuda-performance.dir/build.make CMakeFiles/test-atlas-cuda-performance.dir/home/orencollaco/GitHub/llama.cpp/src/llama-atlas.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-atlas-gpu-stress.dir/build.make CMakeFiles/test-atlas-gpu-stress.dir/home/orencollaco/GitHub/llama.cpp/src/llama-atlas.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-atlas-cuda-kernels.dir/build.make CMakeFiles/test-atlas-cuda-kernels.dir/home/orencollaco/GitHub/llama.cpp/src/llama-atlas.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-atlas-integration.dir/build.make CMakeFiles/test-atlas-integration.dir/home/orencollaco/GitHub/llama.cpp/src/llama-atlas.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-atlas-benchmark.dir/build.make CMakeFiles/test-atlas-benchmark.dir/home/orencollaco/GitHub/llama.cpp/src/llama-atlas.cpp.s
 .PHONY : home/orencollaco/GitHub/llama.cpp/src/llama-atlas.cpp.s
@@ -473,6 +505,30 @@ test-atlas-comprehensive.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-atlas-comprehensive.dir/build.make CMakeFiles/test-atlas-comprehensive.dir/test-atlas-comprehensive.cpp.s
 .PHONY : test-atlas-comprehensive.cpp.s
 
+test-atlas-cuda-kernels.o: test-atlas-cuda-kernels.cu.o
+.PHONY : test-atlas-cuda-kernels.o
+
+# target to build an object file
+test-atlas-cuda-kernels.cu.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-atlas-cuda-kernels.dir/build.make CMakeFiles/test-atlas-cuda-kernels.dir/test-atlas-cuda-kernels.cu.o
+.PHONY : test-atlas-cuda-kernels.cu.o
+
+test-atlas-cuda-kernels.i: test-atlas-cuda-kernels.cu.i
+.PHONY : test-atlas-cuda-kernels.i
+
+# target to preprocess a source file
+test-atlas-cuda-kernels.cu.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-atlas-cuda-kernels.dir/build.make CMakeFiles/test-atlas-cuda-kernels.dir/test-atlas-cuda-kernels.cu.i
+.PHONY : test-atlas-cuda-kernels.cu.i
+
+test-atlas-cuda-kernels.s: test-atlas-cuda-kernels.cu.s
+.PHONY : test-atlas-cuda-kernels.s
+
+# target to generate assembly for a file
+test-atlas-cuda-kernels.cu.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-atlas-cuda-kernels.dir/build.make CMakeFiles/test-atlas-cuda-kernels.dir/test-atlas-cuda-kernels.cu.s
+.PHONY : test-atlas-cuda-kernels.cu.s
+
 test-atlas-cuda-performance.o: test-atlas-cuda-performance.cpp.o
 .PHONY : test-atlas-cuda-performance.o
 
@@ -496,6 +552,30 @@ test-atlas-cuda-performance.s: test-atlas-cuda-performance.cpp.s
 test-atlas-cuda-performance.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-atlas-cuda-performance.dir/build.make CMakeFiles/test-atlas-cuda-performance.dir/test-atlas-cuda-performance.cpp.s
 .PHONY : test-atlas-cuda-performance.cpp.s
+
+test-atlas-gpu-stress.o: test-atlas-gpu-stress.cpp.o
+.PHONY : test-atlas-gpu-stress.o
+
+# target to build an object file
+test-atlas-gpu-stress.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-atlas-gpu-stress.dir/build.make CMakeFiles/test-atlas-gpu-stress.dir/test-atlas-gpu-stress.cpp.o
+.PHONY : test-atlas-gpu-stress.cpp.o
+
+test-atlas-gpu-stress.i: test-atlas-gpu-stress.cpp.i
+.PHONY : test-atlas-gpu-stress.i
+
+# target to preprocess a source file
+test-atlas-gpu-stress.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-atlas-gpu-stress.dir/build.make CMakeFiles/test-atlas-gpu-stress.dir/test-atlas-gpu-stress.cpp.i
+.PHONY : test-atlas-gpu-stress.cpp.i
+
+test-atlas-gpu-stress.s: test-atlas-gpu-stress.cpp.s
+.PHONY : test-atlas-gpu-stress.s
+
+# target to generate assembly for a file
+test-atlas-gpu-stress.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test-atlas-gpu-stress.dir/build.make CMakeFiles/test-atlas-gpu-stress.dir/test-atlas-gpu-stress.cpp.s
+.PHONY : test-atlas-gpu-stress.cpp.s
 
 test-atlas-integration.o: test-atlas-integration.cpp.o
 .PHONY : test-atlas-integration.o
@@ -589,7 +669,9 @@ help:
 	@echo "... atlas_test_framework"
 	@echo "... test-atlas-benchmark"
 	@echo "... test-atlas-comprehensive"
+	@echo "... test-atlas-cuda-kernels"
 	@echo "... test-atlas-cuda-performance"
+	@echo "... test-atlas-gpu-stress"
 	@echo "... test-atlas-integration"
 	@echo "... test-memory-module"
 	@echo "... test-omega-rule"
@@ -611,9 +693,15 @@ help:
 	@echo "... test-atlas-comprehensive.o"
 	@echo "... test-atlas-comprehensive.i"
 	@echo "... test-atlas-comprehensive.s"
+	@echo "... test-atlas-cuda-kernels.o"
+	@echo "... test-atlas-cuda-kernels.i"
+	@echo "... test-atlas-cuda-kernels.s"
 	@echo "... test-atlas-cuda-performance.o"
 	@echo "... test-atlas-cuda-performance.i"
 	@echo "... test-atlas-cuda-performance.s"
+	@echo "... test-atlas-gpu-stress.o"
+	@echo "... test-atlas-gpu-stress.i"
+	@echo "... test-atlas-gpu-stress.s"
 	@echo "... test-atlas-integration.o"
 	@echo "... test-atlas-integration.i"
 	@echo "... test-atlas-integration.s"

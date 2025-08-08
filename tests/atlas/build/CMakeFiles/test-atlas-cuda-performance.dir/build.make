@@ -146,6 +146,10 @@ CMakeFiles/test-atlas-cuda-performance.dir/cmake_device_link.o: CMakeFiles/test-
 CMakeFiles/test-atlas-cuda-performance.dir/cmake_device_link.o: CMakeFiles/test-atlas-cuda-performance.dir/home/orencollaco/GitHub/llama.cpp/ggml/src/ggml-cuda/atlas-multi-gpu.cu.o
 CMakeFiles/test-atlas-cuda-performance.dir/cmake_device_link.o: CMakeFiles/test-atlas-cuda-performance.dir/build.make
 CMakeFiles/test-atlas-cuda-performance.dir/cmake_device_link.o: libatlas_test_framework.a
+CMakeFiles/test-atlas-cuda-performance.dir/cmake_device_link.o: /home/orencollaco/GitHub/llama.cpp/tests/atlas/../../build/bin/libggml-base.so
+CMakeFiles/test-atlas-cuda-performance.dir/cmake_device_link.o: /home/orencollaco/GitHub/llama.cpp/tests/atlas/../../build/bin/libggml.so
+CMakeFiles/test-atlas-cuda-performance.dir/cmake_device_link.o: /home/orencollaco/GitHub/llama.cpp/tests/atlas/../../build/bin/libllama.so
+CMakeFiles/test-atlas-cuda-performance.dir/cmake_device_link.o: /home/orencollaco/GitHub/llama.cpp/tests/atlas/../../build/common/libcommon.a
 CMakeFiles/test-atlas-cuda-performance.dir/cmake_device_link.o: /usr/local/cuda/lib64/libcudart_static.a
 CMakeFiles/test-atlas-cuda-performance.dir/cmake_device_link.o: /usr/lib/x86_64-linux-gnu/librt.a
 CMakeFiles/test-atlas-cuda-performance.dir/cmake_device_link.o: CMakeFiles/test-atlas-cuda-performance.dir/deviceLinkLibs.rsp
@@ -174,6 +178,10 @@ test-atlas-cuda-performance: CMakeFiles/test-atlas-cuda-performance.dir/home/ore
 test-atlas-cuda-performance: CMakeFiles/test-atlas-cuda-performance.dir/home/orencollaco/GitHub/llama.cpp/ggml/src/ggml-cuda/atlas-multi-gpu.cu.o
 test-atlas-cuda-performance: CMakeFiles/test-atlas-cuda-performance.dir/build.make
 test-atlas-cuda-performance: libatlas_test_framework.a
+test-atlas-cuda-performance: /home/orencollaco/GitHub/llama.cpp/tests/atlas/../../build/bin/libggml-base.so
+test-atlas-cuda-performance: /home/orencollaco/GitHub/llama.cpp/tests/atlas/../../build/bin/libggml.so
+test-atlas-cuda-performance: /home/orencollaco/GitHub/llama.cpp/tests/atlas/../../build/bin/libllama.so
+test-atlas-cuda-performance: /home/orencollaco/GitHub/llama.cpp/tests/atlas/../../build/common/libcommon.a
 test-atlas-cuda-performance: /usr/local/cuda/lib64/libcudart_static.a
 test-atlas-cuda-performance: /usr/lib/x86_64-linux-gnu/librt.a
 test-atlas-cuda-performance: CMakeFiles/test-atlas-cuda-performance.dir/cmake_device_link.o

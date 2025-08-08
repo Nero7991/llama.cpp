@@ -1,1 +1,1 @@
--I/home/orencollaco/GitHub/llama.cpp/tests/atlas/../../src -I/home/orencollaco/GitHub/llama.cpp/tests/atlas/../../ggml/include
+-I/home/orencollaco/GitHub/llama.cpp/tests/atlas/../../src -I/home/orencollaco/GitHub/llama.cpp/tests/atlas/../../ggml/include -I/home/orencollaco/GitHub/llama.cpp/tests/atlas/../../common -I/home/orencollaco/GitHub/llama.cpp/tests/atlas/../.. -I"/usr/local/cuda/targets/x86_64-linux/include"
