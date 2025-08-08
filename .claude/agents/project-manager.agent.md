@@ -132,7 +132,7 @@ Follow the complete 7-step GitHub Issue Resolution Workflow:
    - Invoke developer agent with approved architecture
    - Monitor implementation progress through atomic commits
    - Verify commit messages follow communication standards
-   - Ensure proper branch naming: `feature/issue-<number>-<description>`
+   - Work directly on master/main branch with clear commit messages
 
 3. **Code Review Phase**
    - Invoke code-reviewer agent with completed implementation
@@ -217,12 +217,12 @@ EOF
 
 ### Branch Management
 ```bash
-# Create feature branch
-git checkout -b feature/issue-<number>-<description>
-
-# Verify branch status before proceeding
+# Work directly on master/main - no feature branches needed
 git status
 git log --oneline -5
+
+# Make atomic commits with clear messages
+git commit -m "Issue #123: Implement Q4_K quantization - Add core data structures"
 ```
 
 ## Sequential Workflow Example
@@ -244,7 +244,7 @@ Issue #123: Implement Q4_K quantization
 2. **Complete entire workflow before moving on**
 3. **Document each phase completion**
 4. **Maintain clear audit trail**
-5. **No feature branches - work on main/master**
+5. **No feature branches required - work directly on main/master**
 6. **Test thoroughly before closing**
 
 ## Status Reporting

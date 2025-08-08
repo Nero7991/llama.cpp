@@ -42,7 +42,7 @@ Follow the complete 7-step GitHub Issue Resolution Workflow:
 
 ### Implementation Phase (Step 2 in development workflow)
 1. **Receive Architecture** - Get architectural specifications from architect agent
-2. **Create Branch** - `git checkout -b feature/issue-<number>-<brief-description>`
+2. **Work on Master** - Work directly on master/main branch - no feature branches needed
 3. **Implement** - Develop solution with focused, atomic commits
 4. **Test** - Write comprehensive tests and verify all existing tests pass
 5. **Document** - Update relevant documentation and code comments
