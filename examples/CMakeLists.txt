@@ -14,6 +14,11 @@ llama_add_compile_flags()
 
 if (EMSCRIPTEN)
 else()
+    # ATLAS-GGUF conversion tool
+    add_executable(atlas-gguf-convert atlas-gguf-convert.cpp)
+    target_link_libraries(atlas-gguf-convert PRIVATE common llama)
+    install(TARGETS atlas-gguf-convert RUNTIME)
+    
     add_subdirectory(batched)
     add_subdirectory(embedding)
     add_subdirectory(eval-callback)

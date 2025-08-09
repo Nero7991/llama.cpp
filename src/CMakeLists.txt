@@ -13,6 +13,7 @@ add_library(llama
             llama-arch.cpp
             llama-atlas.cpp
             llama-atlas.h
+            atlas-gguf.cpp
             llama-batch.cpp
             llama-chat.cpp
             llama-context.cpp
