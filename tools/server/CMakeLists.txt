@@ -13,6 +13,18 @@ set(TARGET_SRCS
     server.cpp
     utils.hpp
 )
+
+# ATLAS integration sources
+option(LLAMA_ATLAS "Build ATLAS integration support" OFF)
+if(LLAMA_ATLAS)
+    list(APPEND TARGET_SRCS
+        ../../examples/server/atlas-server.cpp
+        ../../examples/server/atlas-endpoints.cpp  
+        ../../examples/server/atlas-metrics.cpp
+        ../../examples/server/atlas-integration.cpp
+    )
+    add_compile_definitions(ATLAS_ENABLED)
+endif()
 set(PUBLIC_ASSETS
     index.html.gz
     loading.html

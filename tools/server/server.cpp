@@ -11,6 +11,11 @@
 #include "mtmd.h"
 #include "mtmd-helper.h"
 
+// ATLAS Integration
+#ifdef ATLAS_ENABLED
+#include "../../examples/server/atlas-integration.hpp"
+#endif
+
 // mime type for sending response
 #define MIMETYPE_JSON "application/json; charset=utf-8"
 
@@ -2084,6 +2089,12 @@ struct server_context {
                 SRV_WRN("%s\n", "cache_reuse is not supported by this context, it will be disabled");
             }
         }
+
+#ifdef ATLAS_ENABLED
+        // Initialize ATLAS integration
+        atlas::init_atlas(model);
+        SRV_INF("ATLAS Phase 6A integration initialized\n");
+#endif
 
         return true;
     }
@@ -4369,6 +4380,18 @@ int main(int argc, char ** argv) {
 
     const auto handle_completions = [&handle_completions_impl](const httplib::Request & req, httplib::Response & res) {
         json data = json::parse(req.body);
+        
+#ifdef ATLAS_ENABLED
+        // Check if this is an ATLAS-enhanced request
+        if (atlas::is_atlas_request(data)) {
+            json atlas_response = atlas::process_with_atlas(data);
+            atlas_response = atlas::enhance_response_with_atlas(atlas_response, true);
+            res.set_content(atlas_response.dump(), MIMETYPE_JSON);
+            res.set_header("X-ATLAS-Processed", "true");
+            return;
+        }
+#endif
+        
         std::vector<raw_buffer> files; // dummy
         handle_completions_impl(
             SERVER_TASK_TYPE_COMPLETION,
@@ -4474,6 +4497,18 @@ int main(int argc, char ** argv) {
         LOG_DBG("request: %s\n", req.body.c_str());
 
         auto body = json::parse(req.body);
+        
+#ifdef ATLAS_ENABLED
+        // Check if this is an ATLAS-enhanced chat request
+        if (atlas::is_atlas_request(body)) {
+            json atlas_response = atlas::process_with_atlas(body);
+            atlas_response = atlas::enhance_response_with_atlas(atlas_response, true);
+            res.set_content(atlas_response.dump(), MIMETYPE_JSON);
+            res.set_header("X-ATLAS-Processed", "true");
+            return;
+        }
+#endif
+        
         std::vector<raw_buffer> files;
         json data = oaicompat_chat_params_parse(
             body,
@@ -4906,6 +4941,11 @@ int main(int argc, char ** argv) {
     // Save & load slots
     svr->Get (params.api_prefix + "/slots",               handle_slots);
     svr->Post(params.api_prefix + "/slots/:id_slot",      handle_slots_action);
+    
+#ifdef ATLAS_ENABLED
+    // ATLAS-specific endpoints
+    ATLAS_ADD_ENDPOINTS(*svr);
+#endif
 
     //
     // Start the server
